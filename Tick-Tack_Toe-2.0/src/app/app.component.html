@@ -1,0 +1,48 @@
+<div class="main-container">
+  <span class="header">
+    <h3>Tick Tack Toe 2.0</h3>
+      <span class="player-info">
+        <form [formGroup]="playerFrom" class="player-form">
+          <mat-form-field style="margin-right: 40px;" >
+            <input class="player-input" matInput formControlName="player1" placeholder="Enter Player Name"  required>
+          </mat-form-field>
+          <mat-form-field >
+            <input class="player-input" matInput formControlName="player2" placeholder="Enter Player Name" required>
+          </mat-form-field>
+          <div class="button-container">
+            <button class="button" (click)="startGame()">Start</button>
+          </div>
+        </form>
+        <!-- <label for="">Player 1:</label>
+        <mat-input type="text" [(ngModel)]="player1.name" placeholder="Enter Player 1 Name"></mat-input>
+        <label for="">Player 2:</label>
+        <mat-input type="text" [(ngModel)]="player2.name" placeholder="Enter Player 1 Name"></mat-input> -->
+       
+      </span>
+      <div class="player-turn" *ngIf="gameStatus === 'in progress'">
+        <span class="player-turn-text" *ngIf="currentPlayerIcon === 'X'"><span>{{ player1.name }}'s Turn </span><span class="material-icons cross-icon" >
+          close
+          </span></span>
+          <span class="player-turn-text" *ngIf="currentPlayerIcon === 'O'">
+            <span >{{ player2.name }}'s Turn </span><span class="material-icons circle-icon" >
+              radio_button_unchecked
+              </span>
+          </span>
+      </div>
+  </span>
+
+  <div class="game-board">
+    <div class="board-row" *ngFor="let row of gameMatrix; let i = index">
+      <div class="board-cell" *ngFor="let cell of row; let j = index" (click)="makeMove(i, j)">
+        <span class="material-icons cross-icon" *ngIf="cell === 'X'">
+          close
+          </span>
+        <span class="material-icons circle-icon" *ngIf="cell === 'O'">
+          radio_button_unchecked
+          </span>
+        <span *ngIf="cell === ''"></span>
+      </div>
+    </div>
+  </div>
+    
+</div>

@@ -1,0 +1,100 @@
+.main-container{
+    width: 80vb;
+    margin-inline: auto;
+}
+
+.header{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.player-info{
+    display: flex;
+    justify-content: space-between;
+}
+
+.player-input{
+    width: 30vb;
+}
+
+.button-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.button{
+    background-color: skyblue;
+    border: 1px solid skyblue;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 20px;
+}
+
+.game-board{
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+}
+
+.board-row{
+    display: flex;
+    flex-direction: row;
+    width: 302px; 
+    height: 100px; 
+    background-color: grey;
+}
+
+.board-cell{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    width: 100px; 
+    height: 100px; 
+    background-color: grey;
+}
+
+.board-row:nth-child(2) {
+    border: 2px solid black;
+    border-left: none;
+    border-right: none;
+}
+
+.board-cell:nth-child(2) {
+    border: 2px solid black;
+    border-top: none;
+    border-bottom: none;
+}
+
+.board-cell > .material-icons{
+    font-size: 50px;
+}
+
+ .cross-icon{
+    color: #ff0000bb;
+}
+
+ .circle-icon{
+    color: rgba(0, 0, 255, 0.788);
+}
+
+.player-turn {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.player-turn-text{
+    display: flex;
+    margin-bottom: 10px;
+}
+.player-turn-text > .material-icons{
+    font-size: 30px;
+    margin-right: 15px;
+    font-weight: 800;
+}
