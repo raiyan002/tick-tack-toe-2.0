@@ -47,7 +47,7 @@
     flex-direction: row;
     width: 302px; 
     height: 100px; 
-    background-color: grey;
+    background-color: #bcbcbcb3;
 }
 
 .board-cell{
@@ -57,7 +57,7 @@
     cursor: pointer;
     width: 100px; 
     height: 100px; 
-    background-color: grey;
+    background-color: #bcbcbcb3;
 }
 
 .board-row:nth-child(2) {
@@ -77,11 +77,11 @@
 }
 
  .cross-icon{
-    color: #ff0000bb;
+    color: #ff0000e5;
 }
 
  .circle-icon{
-    color: rgba(0, 0, 255, 0.788);
+    color: #0000ffef;
 }
 
 .player-turn {

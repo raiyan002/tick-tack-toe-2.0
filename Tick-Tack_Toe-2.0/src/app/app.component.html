@@ -10,13 +10,10 @@
             <input class="player-input" matInput formControlName="player2" placeholder="Enter Player Name" required>
           </mat-form-field>
           <div class="button-container">
-            <button class="button" (click)="startGame()">Start</button>
+            <button class="button" *ngIf="gameStatus === 'not started'" (click)="startGame()">Start</button>
+            <button class="button" *ngIf="gameStatus === 'in progress'" (click)="startGame()">Reset</button>
           </div>
         </form>
-        <!-- <label for="">Player 1:</label>
-        <mat-input type="text" [(ngModel)]="player1.name" placeholder="Enter Player 1 Name"></mat-input>
-        <label for="">Player 2:</label>
-        <mat-input type="text" [(ngModel)]="player2.name" placeholder="Enter Player 1 Name"></mat-input> -->
        
       </span>
       <div class="player-turn" *ngIf="gameStatus === 'in progress'">
@@ -26,18 +23,23 @@
           <span class="player-turn-text" *ngIf="currentPlayerIcon === 'O'">
             <span >{{ player2.name }}'s Turn </span><span class="material-icons circle-icon" >
               radio_button_unchecked
-              </span>
-          </span>
+            </span>
+        </span>
+      </div>
+      <div class="player-turn" *ngIf="gameStatus === 'finished'">
+          <span class="player-turn-text">
+            {{ currentPlayer.name }} Won! 
+        </span>
       </div>
   </span>
 
   <div class="game-board">
     <div class="board-row" *ngFor="let row of gameMatrix; let i = index">
-      <div class="board-cell" *ngFor="let cell of row; let j = index" (click)="makeMove(i, j)">
-        <span class="material-icons cross-icon" *ngIf="cell === 'X'">
+      <div class="board-cell" *ngFor="let cell of row; let j = index" (click)="makeMove(i, j)" [ngStyle]="{'background-color': highlightWinner(i, j) ? '#45e33eb3' : '#bcbcbcb3'}">
+        <span class="material-icons cross-icon" *ngIf="cell === 'X'" [ngStyle]="{'color': isTobeRemoved(i, j) ? '#ff000061' : '#ff0000e5'}">
           close
           </span>
-        <span class="material-icons circle-icon" *ngIf="cell === 'O'">
+        <span class="material-icons circle-icon" *ngIf="cell === 'O'" [ngStyle]="{'color': isTobeRemoved(i, j) ? '#0000ff61' : '#0000ffef'}">
           radio_button_unchecked
           </span>
         <span *ngIf="cell === ''"></span>

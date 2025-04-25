@@ -32,6 +32,7 @@ export class AppComponent implements OnInit {
   player2:playerMoves = { name: '', icon: 'O', rowToremove:-1, columnToremove:-1, movesArray: new Queue<move>(3) };
   gameStatus: string = 'not started'; // Game status can be 'not started', 'in progress', or 'finished'
   playerFrom!: FormGroup;
+  currentPlayer!: playerMoves;
   constructor(
     private formBuilder: FormBuilder
   ) {
@@ -61,20 +62,28 @@ export class AppComponent implements OnInit {
   startGame() {
     this.player1.name = this.playerFrom.get('player1')?.value;
     this.player2.name = this.playerFrom.get('player2')?.value;
-    if(this.player1.name && this.player2.name) {
-      this.gameStatus = 'in progress'; // Set game status to in progress
+    if(this.gameStatus === 'not started') {
+      if(this.player1.name && this.player2.name) {
+        this.gameStatus = 'in progress'; // Set game status to in progress
+      }
+      else{
+        alert('Please enter player names! to start.');
+        return;
+      }
     }
-    else{
-      alert('Please enter player names! to start.');
-      return;
+    else if(this.gameStatus === 'finished' || this.gameStatus === 'in progress') {
+      this.resetGame(); // Reset the game if it was finished or in progress
+      this.startGame(); // Start a new game
     }
+
+    
      
   }
 
 
   makeMove(row: number, column: number) {
-    const currentPlayer = this.currentPlayerIcon === 'X' ? this.player1 : this.player2;
 
+    // Check if the game is already won or not started
     if (this.gameMatrix[row][column] !== ''  || this.gameStatus === 'finished' || this.gameStatus === 'not started') {
       switch(this.gameStatus) {
         case 'not started':
@@ -88,36 +97,33 @@ export class AppComponent implements OnInit {
       return;
     }
 
-
-    // Check if the game is already won
-     
+    this.currentPlayer = this.currentPlayerIcon === 'X' ? this.player1 : this.player2;
+    
       this.gameStatus = 'in progress'; // Set game status to in progress
       const move:move = { row:row, column:column };
-      currentPlayer.movesArray.enqueue(move);
+      this.currentPlayer.movesArray.enqueue(move);
       this.gameMatrix[row][column] = this.currentPlayerIcon;
-      if(currentPlayer.rowToremove >= 0 && currentPlayer.columnToremove >= 0) {
-        this.gameMatrix[currentPlayer.rowToremove][currentPlayer.columnToremove] = ''; // Clear the last move
+      if(this.currentPlayer.rowToremove >= 0 && this.currentPlayer.columnToremove >= 0) {
+        this.gameMatrix[this.currentPlayer.rowToremove][this.currentPlayer.columnToremove] = ''; // Clear the last move
       }
-      if(currentPlayer.movesArray.items.length === 3) {
-        currentPlayer.rowToremove = currentPlayer.movesArray.peekLast()?.row;
-        currentPlayer.columnToremove = currentPlayer.movesArray.peekLast()?.column;
+      if(this.currentPlayer.movesArray.items.length === 3) {
+        this.currentPlayer.rowToremove = this.currentPlayer.movesArray.peekLast()?.row;
+        this.currentPlayer.columnToremove = this.currentPlayer.movesArray.peekLast()?.column;
       }
-      this.currentPlayerIcon = this.currentPlayerIcon === 'X' ? 'O' : 'X'; // Switch player
-
-
 
     console.log('Move made:', this.gameMatrix);
-    if(currentPlayer.movesArray.items.length === 3) {
-    this.checkForWin(currentPlayer);
+    if(this.currentPlayer.movesArray.items.length === 3) {
+    this.checkForWin(this.currentPlayer);
     if (this.gameStatus === 'finished') {
-      console.log(`${currentPlayer.name} wins!`);
+      console.log(`${this.currentPlayer.name} wins!`);
       timer(1000).subscribe(() => {
-        confirm(`${currentPlayer.name} wins!`) ? this.resetGame() : this.resetGame();
+        confirm(`${this.currentPlayer.name} wins!`) ? this.resetGame() : this.resetGame();
         
       });
     }
     }
-    console.log('Current player:', currentPlayer);
+    this.currentPlayerIcon = this.currentPlayerIcon === 'X' ? 'O' : 'X'; // Switch player
+    console.log('Current player:', this.currentPlayer);
   }
 
   checkForWin(currentPlayer: playerMoves) {
@@ -146,5 +152,24 @@ export class AppComponent implements OnInit {
       this.player1 ={ name: '', icon: 'X', rowToremove:-1, columnToremove:-1, movesArray: new Queue<move>(3) }; // Reset player 1 moves
       this.player2 = { name: '', icon: 'O', rowToremove:-1, columnToremove:-1, movesArray: new Queue<move>(3) };; // Reset player 2 moves
       this.currentPlayerIcon = 'X'; // Reset current player icon
+  }
+
+  isTobeRemoved(row: number, column: number): boolean {
+    if(row === this.player1.rowToremove && column === this.player1.columnToremove && this.currentPlayerIcon === 'X' && this.gameStatus === 'in progress') {
+      return true;
+    }
+    if(row === this.player2.rowToremove && column === this.player2.columnToremove && this.currentPlayerIcon === 'O' && this.gameStatus === 'in progress') {
+      return true;
+    }
+    return false;
+  }
+
+  highlightWinner(row: number, column: number): boolean {
+    if(this.gameStatus === 'finished') {
+        return this.currentPlayer.movesArray.items.some((move) => 
+          move.row === row && move.column === column
+        );
+    }
+    return false;
   }
 }
