@@ -1,1 +1,113 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Global Reset and Base Styles */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Roboto', 'Helvetica Neue', sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+}
+
+/* Material Design Theme Customization */
+.mat-mdc-card {
+  border-radius: 1rem !important;
+}
+
+.mat-mdc-button {
+  border-radius: 1.5625rem !important;
+}
+
+.mat-mdc-form-field {
+  width: 100%;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255,255,255,0.1);
+  border-radius: 0.625rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.3);
+  border-radius: 0.625rem;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255,255,255,0.5);
+}
+
+/* Focus styles for accessibility */
+.mat-mdc-button:focus,
+.mat-mdc-icon-button:focus {
+  outline: 0.1875rem solid rgba(255,255,255,0.5);
+  outline-offset: 0.125rem;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  body {
+    background: #000;
+    color: #fff;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* Custom Snackbar Toaster Styles */
+.success-snackbar {
+  background: linear-gradient(45deg, #4CAF50, #8BC34A) !important;
+  color: white !important;
+  font-weight: 600 !important;
+}
+
+.error-snackbar {
+  background: linear-gradient(45deg, #F44336, #E91E63) !important;
+  color: white !important;
+  font-weight: 600 !important;
+}
+
+.warning-snackbar {
+  background: linear-gradient(45deg, #FF9800, #FFC107) !important;
+  color: white !important;
+  font-weight: 600 !important;
+}
+
+.info-snackbar {
+  background: linear-gradient(45deg, #2196F3, #21CBF3) !important;
+  color: white !important;
+  font-weight: 500 !important;
+}
+
+.mat-mdc-snack-bar-container {
+  border-radius: 0.5rem !important;
+  box-shadow: 0 0.25rem 1rem rgba(0,0,0,0.2) !important;
+  margin: 1rem !important;
+}
+
+.mat-mdc-snack-bar-action {
+  color: white !important;
+  font-weight: 700 !important;
+}

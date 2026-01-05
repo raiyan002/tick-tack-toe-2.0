@@ -1,0 +1,130 @@
+.message-banner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  border-radius: 1rem;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+  position: relative;
+  min-height: 4rem;
+  box-shadow: 0 0.5rem 2rem rgba(0,0,0,0.2);
+}
+
+/* Victory Messages */
+.message-success {
+  background: linear-gradient(45deg, #4CAF50, #8BC34A);
+  color: white;
+  border: 3px solid #388E3C;
+  box-shadow:
+    0 0.75rem 2rem rgba(76, 175, 80, 0.5),
+    0 0 2rem rgba(76, 175, 80, 0.3);
+  animation: victoryBounce 0.8s ease;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.message-success .message-text {
+  text-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.4);
+}
+
+@keyframes victoryBounce {
+  0% {
+    transform: translateY(-2rem) scale(0.8) rotate(-5deg);
+    opacity: 0;
+  }
+  30% {
+    transform: translateY(-0.5rem) scale(1.1) rotate(2deg);
+    opacity: 1;
+  }
+  60% {
+    transform: translateY(0.25rem) scale(0.95) rotate(-1deg);
+  }
+  80% {
+    transform: translateY(-0.125rem) scale(1.02) rotate(0.5deg);
+  }
+  100% {
+    transform: translateY(0) scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+/* Loss Messages */
+.message-error {
+  background: linear-gradient(45deg, #F44336, #E91E63);
+  color: white;
+  border: 3px solid #D32F2F;
+  box-shadow:
+    0 0.75rem 2rem rgba(244, 67, 54, 0.5),
+    0 0 3rem rgba(244, 67, 54, 0.3);
+  animation: defeatShake 0.8s ease;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.message-error .message-text {
+  text-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.4);
+}
+
+@keyframes defeatShake {
+  0% {
+    transform: translateY(-1.5rem) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    transform: translateY(0) rotate(-3deg);
+    opacity: 1;
+  }
+  20% {
+    transform: rotate(3deg);
+  }
+  30% {
+    transform: rotate(-2deg);
+  }
+  40% {
+    transform: rotate(2deg);
+  }
+  50% {
+    transform: rotate(-1deg);
+  }
+  60% {
+    transform: rotate(1deg);
+  }
+  70% {
+    transform: rotate(-0.5deg);
+  }
+  80% {
+    transform: rotate(0.5deg);
+  }
+  90% {
+    transform: rotate(-0.25deg);
+  }
+  100% {
+    transform: rotate(0deg);
+    opacity: 1;
+  }
+}
+
+.message-icon {
+  font-size: 2rem !important;
+  width: 2rem !important;
+  height: 2rem !important;
+  flex-shrink: 0;
+}
+
+.message-text {
+  flex: 1;
+  font-size: 1.1rem;
+  line-height: 1.4;
+}
+
+.message-close {
+  margin-left: auto;
+  color: inherit !important;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.message-close:hover {
+  opacity: 1;
+}

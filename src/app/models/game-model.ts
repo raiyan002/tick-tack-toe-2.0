@@ -1,8 +1,6 @@
 export interface playerMoves {
     name: string;
     icon: string;
-    rowToremove: number;
-    columnToremove: number;
     movesArray: Queue<move>
 }
 
@@ -31,7 +29,7 @@ export class Queue<T> {
         return this.items.shift();
     }
 
-    peekLast(): move {
+    peekFirst(): move {
         return this.items[0];
     }
 

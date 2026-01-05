@@ -1,50 +1,35 @@
-<div class="main-container">
-  <span class="header">
-    <h3>Tick Tack Toe 2.0</h3>
-      <span class="player-info">
-        <form [formGroup]="playerFrom" class="player-form">
-          <mat-form-field style="margin-right: 40px;" >
-            <input class="player-input" matInput formControlName="player1" placeholder="Enter Player Name"  required>
-          </mat-form-field>
-          <mat-form-field >
-            <input class="player-input" matInput formControlName="player2" placeholder="Enter Player Name" required>
-          </mat-form-field>
-          <div class="button-container">
-            <button class="button" *ngIf="gameStatus === 'not started'" (click)="startGame()">Start</button>
-            <button class="button" *ngIf="gameStatus === 'in progress'" (click)="startGame()">Reset</button>
-          </div>
-        </form>
-       
-      </span>
-      <div class="player-turn" *ngIf="gameStatus === 'in progress'">
-        <span class="player-turn-text" *ngIf="currentPlayerIcon === 'X'"><span>{{ player1.name }}'s Turn </span><span class="material-icons cross-icon" >
-          close
-          </span></span>
-          <span class="player-turn-text" *ngIf="currentPlayerIcon === 'O'">
-            <span >{{ player2.name }}'s Turn </span><span class="material-icons circle-icon" >
-              radio_button_unchecked
-            </span>
-        </span>
-      </div>
-      <div class="player-turn" *ngIf="gameStatus === 'finished'">
-          <span class="player-turn-text">
-            {{ currentPlayer.name }} Won! 
-        </span>
-      </div>
-  </span>
+<div class="app-container">
+  <!-- Header Section -->
+  <header class="game-header">
+    <h1 class="game-title">
+      <mat-icon class="title-icon">games</mat-icon>
+      Tic-Tac-Toe 2.0
+    </h1>
+    <p class="game-subtitle">The Strategic Moving Pieces Variant</p>
+  </header>
 
-  <div class="game-board">
-    <div class="board-row" *ngFor="let row of gameMatrix; let i = index">
-      <div class="board-cell" *ngFor="let cell of row; let j = index" (click)="makeMove(i, j)" [ngStyle]="{'background-color': highlightWinner(i, j) ? '#45e33eb3' : '#bcbcbcb3'}">
-        <span class="material-icons cross-icon" *ngIf="cell === 'X'" [ngStyle]="{'color': isTobeRemoved(i, j) ? '#ff000061' : '#ff0000e5'}">
-          close
-          </span>
-        <span class="material-icons circle-icon" *ngIf="cell === 'O'" [ngStyle]="{'color': isTobeRemoved(i, j) ? '#0000ff61' : '#0000ffef'}">
-          radio_button_unchecked
-          </span>
-        <span *ngIf="cell === ''"></span>
-      </div>
-    </div>
-  </div>
-    
+  <!-- Game Rules Component -->
+  <app-game-rules></app-game-rules>
+
+  <!-- Player Setup Component -->
+  <app-player-setup
+    (gameStarted)="onGameStarted($event)"
+    (gameReset)="onGameReset()">
+  </app-player-setup>
+
+  <!-- Game Status Component -->
+  <app-game-status
+    *ngIf="gameState?.gameStatus === 'in-progress' || gameState?.gameStatus === 'finished'">
+  </app-game-status>
+
+  <!-- Message Banner Component -->
+  <app-message-banner></app-message-banner>
+
+  <!-- Game Board Component -->
+  <app-game-board *ngIf="gameState?.gameStatus !== 'not-started'"></app-game-board>
+
+  <!-- Footer -->
+  <footer class="game-footer">
+    <p>Enhanced Tic-Tac-Toe Experience, Built with Passion by Raiyan!</p>
+  </footer>
 </div>
