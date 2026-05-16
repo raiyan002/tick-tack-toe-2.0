@@ -209,17 +209,14 @@ export class GameService {
     if (rows.every((row, index) => row === columns[index])) return true;
 
 
-    // moves.sort((a, b) => a.row - b.row || a.column - b.column);
-    // const antiDiagMoves = [{row: 2, column: 0}, {row: 1, column: 1}, {row: 0, column: 2}];
+    moves.sort((a, b) => a.row - b.row || a.column - b.column);
+    const antiDiagMoves = [{row: 2, column: 0}, {row: 1, column: 1}, {row: 0, column: 2}];
 
-    // // Check anti-diagonal
-    // if (moves.every((move, index) => move.row === antiDiagMoves[index].row && move.column === antiDiagMoves[index].column)) {
-    //   return true;
-    // }
     // Check anti-diagonal
-    if (moves.every((move, index) => move.row + move.column === 2)) {
+    if (moves.every((move, index) => move.row === antiDiagMoves[index].row && move.column === antiDiagMoves[index].column)) {
       return true;
     }
+
     return false;
   }
 
