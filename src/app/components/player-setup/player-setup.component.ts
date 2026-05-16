@@ -95,7 +95,7 @@ import { GameState, GameMode, AIDifficulty } from '../../types/game.types';
                 </mat-form-field>
 
                 <div class="ai-player-display" *ngIf="setupForm.get('gameMode')?.value === 'single-player'">
-                  <button mat-stroked-button class="ai-player-button" disabled>
+                  <button mat-stroked-button class="ai-player-button" (click)="onGameModeChange('single-player')">
                     <div class="ai-player-content">
                       <div class="ai-info">
                         <span class="ai-name">{{ getAIPlayerName() }}</span>
@@ -261,6 +261,7 @@ export class PlayerSetupComponent implements OnInit, OnDestroy {
   }
 
   selectDifficulty(difficulty: AIDifficulty): void {
+    this.gameService.resetGame();
     this.setupForm.patchValue({ aiDifficulty: difficulty });
     this.showDifficultyPopup = false;
     this.difficultySelected = true; // Mark that user has selected a difficulty
@@ -296,6 +297,8 @@ export class PlayerSetupComponent implements OnInit, OnDestroy {
 
   restartGame(): void {
     this.gameService.resetGame();
+    // Mark difficulty as selected to prevent popup from showing on restart
+    this.difficultySelected = true;
 
     // Automatically start a new game if the form is valid
     if (this.isFormValid()) {
